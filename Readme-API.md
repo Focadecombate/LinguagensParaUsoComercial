@@ -1,30 +1,26 @@
 
 # NodeJS API
 
-  
+## Para inciar a aplicação
 
-### Para inciar a aplicação
+```sh
+yarn
+```
 
-  
+```sh
+yarn start
+```
 
-```yarn```
+## Para inciar a aplicação utilizando Docker
 
-  
+```sh
+docker image build -t nodejs-api .
+```
 
-```yarn start```
+```sh
+docker container run -p 3000:3000 nodejs-api
+```
 
-  
-
-### Para inciar a aplicação utilizando Docker
-
-  
-
-```docker image build -t nodejs-api .```
-
-  
-
-```docker container run --rm -p 3000:3000 nodejs-api```
-
-### Considerações
+## Considerações
 
 - As variáveis de ambiente devem ser informadas em um arquivo ```.env``` na raiz do projeto
