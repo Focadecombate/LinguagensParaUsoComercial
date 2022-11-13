@@ -20,7 +20,6 @@ Utilizar o axios para fazer requisições para as rotas expostas, assim buscando
 ### Objeto a Ser Retornado
 
 ```ts
-
 type Store = 'DROGASIL' | 'DROGA_RAIA' | 'DROGARIA_SAO_PAULO'
 
 interface Result { 
@@ -32,10 +31,15 @@ interface Result {
  image?: string
 }
 
-interface SearchProducts {
- search (productName: string): Promise<Result>
+interface Input {
+ productTerm: string
+ latitude: string
+ longitude: string
 }
 
+interface SearchProducts {
+ search (input: Input): Promise<Result[]>
+}
 ```
 
 ## Rotas Para Pegar Os Dados
