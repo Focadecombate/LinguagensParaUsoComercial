@@ -19,7 +19,7 @@
 
   
 
-```docker image built -t nodejs-api```
+```docker image build -t nodejs-api .```
 
   
 
