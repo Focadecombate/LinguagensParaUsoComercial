@@ -28,7 +28,11 @@ interface DrogasilAndDrogaRaiaProduct {
   valueTo: number;
 }
 
-export interface DrogasilAndDrogaRaiaResult {
-  metadata: DrogasilAndDrogaRaiaMetadata;
+interface DrogasilAndDrogaRaiaResult {
   products: DrogasilAndDrogaRaiaProduct[];
+}
+
+export interface DrogasilAndDrogaRaiaResponse {
+  metadata: DrogasilAndDrogaRaiaMetadata;
+  results: DrogasilAndDrogaRaiaResult;
 }
