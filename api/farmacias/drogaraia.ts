@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { Input, Result, SearchProducts } from "../@types/Common";
-import { DrogasilAndDrogaRaiaResult } from "../@types/Drogasil";
+import { DrogasilAndDrogaRaiaResponse } from "../@types/Drogasil";
 import { pharmacyUrls } from "../constants";
 
 export class DrogaRaia implements SearchProducts {
@@ -13,7 +13,7 @@ export class DrogaRaia implements SearchProducts {
   }
 
   async search(input: Input): Promise<Result[]> {
-    const { data } = await this.axiosInstance.get<DrogasilAndDrogaRaiaResult>(
+    const { data } = await this.axiosInstance.get<DrogasilAndDrogaRaiaResponse>(
       "/search",
       {
         params: {
@@ -24,8 +24,7 @@ export class DrogaRaia implements SearchProducts {
       }
     );
 
-    const { products } = data;
-
+    const products = data.results.products;
     const results: Result[] = products.map((product) => ({
       name: product.name,
       price: product.valueTo,

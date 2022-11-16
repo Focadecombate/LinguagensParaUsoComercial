@@ -10,7 +10,8 @@ export const addRoutes = (router: Router) => {
   });
 
   // Rota para buscar produtos
-  router.get("/search", async (req, res) => {
-    await searchController.search(req, res);
+  router.get("/search/:productName/:latitude/:longitude", async (req, res) => {
+    const response = await searchController.search(req.params, res);
+    res.send(response);
   });
 };

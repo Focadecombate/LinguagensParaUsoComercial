@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Result, SearchProducts } from "../@types/Common";
+import { Input, Result, SearchProducts } from "../@types/Common";
 import { DrogariaSp, DrogaRaia, Drogasil } from "../farmacias";
 
 export class SearchController {
@@ -11,7 +11,13 @@ export class SearchController {
     this.productSearchers.push(new Drogasil());
   }
 
-  async search({ query }: Request, res: Response): Promise<void> {
+  async search(input: Input, res: Response): Promise<Result[]> {
     const results: Result[] = [];
+    for (const productSearch of this.productSearchers) {
+      let result = await productSearch.search(input);
+      results.push(...result);
+    }
+
+    return results;
   }
 }
