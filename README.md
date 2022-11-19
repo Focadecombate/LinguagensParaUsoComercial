@@ -15,6 +15,8 @@ Um servidor simples, utilizando o express para disponibilizar uma rota /search q
 
 ### Requisições
 
+Requisição exemplo para teste: http://localhost:3000/v1/search/bupropiona/3/4
+
 Utilizar o axios para fazer requisições para as rotas expostas, assim buscando os dados das farmácias.
 
 ### Objeto a Ser Retornado
