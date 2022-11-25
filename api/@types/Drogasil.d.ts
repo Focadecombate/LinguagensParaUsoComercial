@@ -29,6 +29,10 @@ interface DrogasilAndDrogaRaiaProduct {
 }
 
 interface DrogasilAndDrogaRaiaResult {
-  metadata: DrogasilAndDrogaRaiaMetadata;
   products: DrogasilAndDrogaRaiaProduct[];
+}
+
+export interface DrogasilAndDrogaRaiaResponse {
+  metadata: DrogasilAndDrogaRaiaMetadata;
+  results: DrogasilAndDrogaRaiaResult;
 }
