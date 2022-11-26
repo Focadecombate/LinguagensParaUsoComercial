@@ -22,18 +22,18 @@ describe('when DrogariaSp search function is called', () => {
 
     })
 
-    test('should return aattributes types correctly', async () => {
-
+    test('should return aattributes types correctly if it\s not an empty array', async () => {
         try {
-
             const result = await drogariaSp.search(inputMock);
 
-            expect(typeof result[0].name).toBe('string');
-            expect(typeof result[0].image).toBe('string');
-            expect(typeof result[0].linkToProduct).toBe('string');
-            expect(typeof result[0].price).toBe('number');
-            expect(typeof result[0].discountedPrice).toBe('number');
-            expect(typeof result[0].store).toBe('string');
+            if (result.length > 0) {
+                expect(typeof result[0].name).toBe('string');
+                expect(typeof result[0].image).toBe('string');
+                expect(typeof result[0].linkToProduct).toBe('string');
+                expect(typeof result[0].price).toBe('number');
+                expect(typeof result[0].discountedPrice).toBe('number');
+                expect(typeof result[0].store).toBe('string');
+            }
         } catch (_) {
 
         }
