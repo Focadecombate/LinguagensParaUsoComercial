@@ -5,3 +5,7 @@ export const pharmacyUrls: Record<Store, string> = {
     DROGASIL: "https://api-gateway-prod.drogasil.com.br/search/v2/store/DROGASIL/channel/SITE/product",
     DROGARIA_SAO_PAULO: "https://api.linximpulse.com/engage/search/v3",
 };
+
+export const helpers = {
+  NOMINATIM: "https://nominatim.openstreetmap.org"
+}
