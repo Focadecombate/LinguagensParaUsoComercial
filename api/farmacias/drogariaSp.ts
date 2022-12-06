@@ -2,6 +2,7 @@ import { Input, Result, SearchProducts } from "../@types/Common";
 import axios, { AxiosInstance } from "axios";
 import { DrogariaSpResult } from "../@types/DrograriaSp";
 import { pharmacyUrls } from "../constants";
+import { GeolocationUtil } from "../helpers/geolocationUtil";
 
 
 export class DrogariaSp implements SearchProducts {
@@ -14,6 +15,8 @@ export class DrogariaSp implements SearchProducts {
   }
 
   async search(input: Input): Promise<Result[]> {
+    
+    
     const { data } = await this.axiosInstance.get<DrogariaSpResult>(
       "/search",
       {
@@ -35,8 +38,24 @@ export class DrogariaSp implements SearchProducts {
       image: product.images.default,
       discountedPrice: product.oldPrice,
     }));
-
+    
     return results;
+    
+    
+  }
+
+  async getStoreLocation(lati: string, long: string) {
+    
+    let geo = new GeolocationUtil();
+    
+    let lat = parseFloat(lati);
+    let lon = parseFloat(long);
+
+    const {data} = await axios.get("https://www.drogariasaopaulo.com.br/api/dataentities/PR/documents/f52e9e7f-a02c-11ea-8337-0a8ac637298d/arquivo/attachments/nossas-lojas.js");
+    
+    
+    return data;
+    
   }
 }
 
