@@ -23,6 +23,9 @@ export class DrogariaSp implements SearchProducts {
           productFormat: "complete",
           apiKey: "drogariasaopaulo"
         },
+        headers: {
+          origin: 'https://www.drogariasaopaulo.com.br/'
+        }
       }
     );
 
