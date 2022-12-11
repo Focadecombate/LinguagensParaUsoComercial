@@ -1,3 +1,4 @@
+import cors from 'cors'
 import "dotenv";
 import "express-async-errors";
 import express, {
@@ -12,6 +13,14 @@ import { addRoutes } from "./api/router/router";
 
 const createApp = () => {
   const app = express();
+
+  const allowedOrigins = ['*']
+
+  const options: cors.CorsOptions = {
+    origin: allowedOrigins
+  }
+
+  app.use(cors(options))
 
   app.use(json());
 
