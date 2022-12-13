@@ -26,17 +26,17 @@ export class DrogaRaia implements SearchProducts {
     );
 
     const products = data.results.products;
-    
-    const results: Result[] = products.map((product) => ({
-      name: product.name,
-      price: product.valueTo,
-      linkToProduct: product.urlKey,
-      store: "DROGA_RAIA",
-      image: product.image,
-      discountedPrice: product.valueFrom
-    }));
 
-    
+    const results: Result[] = products
+      .filter(({ name }) => name.includes(input.productName))
+      .map((product) => ({
+        name: product.name,
+        price: product.valueTo,
+        linkToProduct: product.urlKey,
+        store: "DROGA_RAIA",
+        image: product.image,
+        discountedPrice: product.valueFrom,
+      }));
 
     return results;
   }

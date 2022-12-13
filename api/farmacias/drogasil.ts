@@ -2,7 +2,6 @@ import axios, { AxiosInstance } from "axios";
 import { Input, Result, SearchProducts } from "../@types/Common";
 import { DrogasilAndDrogaRaiaResponse } from "../@types/Drogasil";
 import { pharmacyUrls } from "../constants";
-import { GeolocationUtil } from "../helpers/geolocationUtil";
 
 export class Drogasil implements SearchProducts {
   private readonly axiosInstance: AxiosInstance;
@@ -27,17 +26,17 @@ export class Drogasil implements SearchProducts {
 
     const products = data.results.products;
 
-    const results: Result[] = products.map((product: any) => ({
-      name: product.name,
-      price: product.valueTo,
-      linkToProduct: product.urlKey,
-      store: "DROGASIL",
-      image: product.image,
-      discountedPrice: product.valueFrom
-    }));
+    const results: Result[] = products
+      .filter(({ name }) => name.includes(input.productName))
+      .map((product) => ({
+        name: product.name,
+        price: product.valueTo,
+        linkToProduct: product.urlKey,
+        store: "DROGASIL",
+        image: product.image,
+        discountedPrice: product.valueFrom,
+      }));
 
     return results;
   }
-
-  
 }
