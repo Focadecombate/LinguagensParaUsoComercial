@@ -41,7 +41,7 @@ export class DrogariaSp implements SearchProducts {
       image: product.images.default,
       discountedPrice: product.oldPrice,
     }));
-
+    
     return results;
     
     
