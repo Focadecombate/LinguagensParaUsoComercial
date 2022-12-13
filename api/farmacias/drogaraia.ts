@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from "axios";
 import { Input, Result, SearchProducts } from "../@types/Common";
 import { DrogasilAndDrogaRaiaResponse } from "../@types/Drogasil";
 import { pharmacyUrls } from "../constants";
+import { GeolocationUtil } from "../helpers/geolocationUtil";
 
 export class DrogaRaia implements SearchProducts {
   private readonly axiosInstance: AxiosInstance;
@@ -25,14 +26,17 @@ export class DrogaRaia implements SearchProducts {
     );
 
     const products = data.results.products;
+    
     const results: Result[] = products.map((product) => ({
       name: product.name,
       price: product.valueTo,
       linkToProduct: product.urlKey,
       store: "DROGA_RAIA",
       image: product.image,
-      discountedPrice: product.valueFrom,
+      discountedPrice: product.valueFrom
     }));
+
+    
 
     return results;
   }
