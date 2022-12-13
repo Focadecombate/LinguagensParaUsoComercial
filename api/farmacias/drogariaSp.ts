@@ -47,18 +47,5 @@ export class DrogariaSp implements SearchProducts {
     
   }
 
-  async getStoreLocation(lati: string, long: string) {
-    
-    let geo = new GeolocationUtil();
-    
-    let lat = parseFloat(lati);
-    let lon = parseFloat(long);
-
-    const {data} = await axios.get("https://www.drogariasaopaulo.com.br/api/dataentities/PR/documents/f52e9e7f-a02c-11ea-8337-0a8ac637298d/arquivo/attachments/nossas-lojas.js");
-    
-    
-    return data;
-    
-  }
 }
 

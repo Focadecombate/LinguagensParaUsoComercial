@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Request, Response } from "express";
 import { Input, Result, SearchProducts, SearchResponse } from "../@types/Common";
+import { pharmacyLocationUrls } from "../constants";
 import { DrogariaSp, DrogaRaia, Drogasil } from "../farmacias";
 import { GeolocationUtil } from "../helpers/geolocationUtil";
 
@@ -54,14 +55,27 @@ export class SearchController {
 
     let drogasil = [];
     let drogaraia = [];
-    let drogariaSp: any = [];
+    let drogariaSp = [];
     let error_message = null;
-    
+
     try {
-      const drogasilDto = await axios.post("https://site-bff-prod.drogasil.com.br/graphql", locationParam);
-      const drogaraiaDto = await axios.post("https://bff.drogaraia.com.br/graphql", locationParam);
-      drogasil = drogasilDto.data?.data?.stores?.items,
-      drogaraia = drogaraiaDto.data?.data?.stores?.items
+      const drogasilDto = await axios.post(pharmacyLocationUrls.DROGASIL, locationParam);
+      const drogaraiaDto = await axios.post(pharmacyLocationUrls.DROGA_RAIA, locationParam);
+
+      const {data} = await axios.get(pharmacyLocationUrls.DROGARIA_SAO_PAULO);
+    
+      drogariaSp = (data.retorno || []).filter((item: {latitude: string, longitude: string}) => {
+        let lat1 = parseFloat(lat);
+        let lat2 = parseFloat(item.latitude?.replace(",", "."));
+        let lon1 = parseFloat(lon);
+        let lon2 = parseFloat(item.longitude?.replace(",", "."));
+
+        let distancia = geo.getLocationKmDistance(lat1, lon1, lat2, lon2);
+        return distancia < 1.5;
+      })
+
+      drogasil = drogasilDto.data?.data?.stores?.items;
+      drogaraia = drogaraiaDto.data?.data?.stores?.items;
     } catch (error) {
       error_message = error;
     }
