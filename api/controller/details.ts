@@ -22,9 +22,10 @@ export class DetailsController {
         return productSearch.search(input);
       })
     );
+
     const results: Result[] = resultsSepareted
       .flat()
-      .filter(({ name }) => name.includes(input.productName));
+      .filter(({ name }) => name.toLowerCase().includes(input.productName.toLowerCase()));
     results.sort((a, b) => a.price - b.price);
 
     return {
