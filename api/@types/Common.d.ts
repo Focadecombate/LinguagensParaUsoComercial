@@ -9,6 +9,11 @@ export interface Result {
   image?: string;
 }
 
+export interface SearchResponse {
+  stores_locations: any,
+  results: Result[]
+}
+
 export interface Input {
   productName: string;
   longitude: string
