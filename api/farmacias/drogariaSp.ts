@@ -12,10 +12,10 @@ export class DrogariaSp implements SearchProducts {
     });
   }
 
-  async search(input: Input): Promise<Result[]> {
+  async search({ productName }: Input): Promise<Result[]> {
     const { data } = await this.axiosInstance.get<DrogariaSpResult>("/search", {
       params: {
-        terms: input.productName,
+        terms: productName,
         resultsPerPage: 50,
         productFormat: "complete",
         apiKey: "drogariasaopaulo",
@@ -26,16 +26,14 @@ export class DrogariaSp implements SearchProducts {
     });
 
     const products = data.products;
-    const results: Result[] = products
-      .filter(({ name }) => name.includes(input.productName))
-      .map((product) => ({
-        name: product.name,
-        price: product.price,
-        linkToProduct: product.url,
-        store: "DROGARIA_SAO_PAULO",
-        image: product.images.default,
-        discountedPrice: product.oldPrice,
-      }));
+    const results: Result[] = products.map((product) => ({
+      name: product.name,
+      price: product.price,
+      linkToProduct: product.url,
+      store: "DROGARIA_SAO_PAULO",
+      image: product.images.default,
+      discountedPrice: product.oldPrice,
+    }));
 
     return results;
   }

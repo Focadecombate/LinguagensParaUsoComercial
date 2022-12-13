@@ -10,16 +10,24 @@ export interface Result {
 }
 
 export interface SearchResponse {
-  stores_locations: any,
-  results: Result[]
+  stores_locations: any;
+  results: Result[];
 }
 
 export interface Input {
   productName: string;
-  longitude: string
-  latitude: string
+  longitude: string;
+  latitude: string;
+}
+
+export interface DetailInput {
+  productName: string;
+}
+
+export interface DetailResponse {
+  results: Result[];
 }
 
 export interface SearchProducts {
-  search(input: Input): Promise<Result[]>;
+  search(input: DetailInput): Promise<Result[]>;
 }

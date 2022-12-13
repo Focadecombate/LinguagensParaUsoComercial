@@ -2,7 +2,6 @@ import axios, { AxiosInstance } from "axios";
 import { Input, Result, SearchProducts } from "../@types/Common";
 import { DrogasilAndDrogaRaiaResponse } from "../@types/Drogasil";
 import { pharmacyUrls } from "../constants";
-import { GeolocationUtil } from "../helpers/geolocationUtil";
 
 export class DrogaRaia implements SearchProducts {
   private readonly axiosInstance: AxiosInstance;
@@ -13,12 +12,12 @@ export class DrogaRaia implements SearchProducts {
     });
   }
 
-  async search(input: Input): Promise<Result[]> {
+  async search({ productName }: Input): Promise<Result[]> {
     const { data } = await this.axiosInstance.get<DrogasilAndDrogaRaiaResponse>(
       "/search",
       {
         params: {
-          term: input.productName,
+          term: productName,
           limit: 50,
           sort_by: "relevance:desc",
         },
@@ -28,7 +27,6 @@ export class DrogaRaia implements SearchProducts {
     const products = data.results.products;
 
     const results: Result[] = products
-      .filter(({ name }) => name.includes(input.productName))
       .map((product) => ({
         name: product.name,
         price: product.valueTo,

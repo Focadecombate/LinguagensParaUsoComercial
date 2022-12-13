@@ -12,12 +12,12 @@ export class Drogasil implements SearchProducts {
     });
   }
 
-  async search(input: Input): Promise<Result[]> {
+  async search({ productName }: Input): Promise<Result[]> {
     const { data } = await this.axiosInstance.get<DrogasilAndDrogaRaiaResponse>(
       "/search",
       {
         params: {
-          term: input.productName,
+          term: productName,
           limit: 50,
           sort_by: "relevance:desc",
         },
@@ -27,7 +27,6 @@ export class Drogasil implements SearchProducts {
     const products = data.results.products;
 
     const results: Result[] = products
-      .filter(({ name }) => name.includes(input.productName))
       .map((product) => ({
         name: product.name,
         price: product.valueTo,
